@@ -1,6 +1,5 @@
-import google.ds_python_interpreter as ds
+#Screen-Ellophant update-guideline
 
-markdown_content = """
 # 🚀 Release & Update Workflow | Screen Ellophant
 
 Diese Dokumentation beschreibt den präzisen Prozess, um eine neue Version von **Screen Ellophant** zu veröffentlichen und die automatische Update-Funktion (Tauri Updater) zu aktualisieren.
