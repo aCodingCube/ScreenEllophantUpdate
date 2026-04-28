@@ -32,7 +32,7 @@
 * Eventuelles Löschen alter Tags im **lokalen Repository** sowie im **Remote** (GitHub).
 
 ### 6. CI/CD Monitoring
-* Warten in GitHub auf den **Actions-Build** mit der integrierten `pub-Signatur`.
+* Warten in GitHub auf den **Actions-Build** mit der integrierten `public signatur`.
     * *Dauer: ca. 5-10 Minuten.*
 
 ### 7. Signatur-Dekodierung
