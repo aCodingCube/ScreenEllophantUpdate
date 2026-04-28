@@ -25,7 +25,7 @@
     *(Beispiel: `git push "build v1.0.2"`)*
 
 ### 4. Git-Tagging
-* Erstellung eines neuen Tags: `"vx.x.x"`
+* Erstellung und push eines neuen Tags: `"vx.x.x"`
     *(Beispiel: `v1.0.2` // Anmerkung ist optional)*
 
 ### 5. Repository-Hygiene
