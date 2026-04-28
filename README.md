@@ -1,79 +1,65 @@
-# 🐘 Screen-Ellophant | Release & Update Guideline
+# 🐘 Screen-Ellophant | Deployment & Release Guideline
 
-Dieses Dokument beschreibt den verbindlichen Workflow für die Entwicklung und Bereitstellung von Updates für **Screen-Ellophant**. Alle Schritte müssen chronologisch befolgt werden, um die Integrität der Software und des Auto-Updaters zu gewährleisten.
+> **Wichtiger Hinweis:** Diese Guideline definiert den verbindlichen Workflow für die Bereitstellung neuer Softwareversionen von **Screen-Ellophant**. Die strikte Einhaltung der Reihenfolge stellt die Integrität des Auto-Updaters und die Konsistenz der Repository-Historie sicher.
 
 ---
 
-## 🛠 Deployment-Workflow (12 Schritte)
+## 📋 Release-Protokoll (Schritt-für-Schritt)
 
 ### 1. Versions-Definition
-Festlegung der neuen Versionsnummer nach dem Semantic Versioning Muster: `x.x.x` (Major.Minor.Patch).
+* Festlegung der neuen Versionsnummer nach dem Semantic Versioning Muster: `x.x.x`
 
 ### 2. Metadaten-Synchronisation
-Die neue Versionsnummer muss in den folgenden Dateien manuell ersetzt werden:
-* **Updater.json** (3x)
-* **package.json** (1x)
-* **package-lock.json** (1x)
-* **tauri.conf.json** (1x)
-* **StartingWindow/index.html** (1x)
+* Manuelles Ersetzen der Versionsnummer in den folgenden Systemdateien:
+    * `Updater.json` (**3x**)
+    * `package.json` (**1x**)
+    * `package-lock.json` (**1x**)
+    * `tauri.conf.json` (**1x**)
+    * `StartingWindow/index.html` (**1x**)
 
-### 3. Build-Commit & Push
-Übertragen der Änderungen in das Repository mit dem Build-Identifier:
-```bash
-git push "build vx.x.x"
+### 3. Build-Push
+* Übertragen der Änderungen in das Repository mit folgendem Befehl:
+    ```bash
+    git push "build vx.x.x"
+    ```
+    *(Beispiel: `git push "build v1.0.2"`)*
 
-Beispiel: git push "build v1.0.2"
-4. Tagging
+### 4. Git-Tagging
+* Erstellung eines neuen Tags: `"vx.x.x"`
+    *(Beispiel: `v1.0.2` // Anmerkung ist optional)*
 
-Erstellung eines neuen Git-Tags:
-Bash
+### 5. Repository-Hygiene
+* Eventuelles Löschen alter Tags im **lokalen Repository** sowie im **Remote** (GitHub).
 
-git tag vx.x.x
+### 6. CI/CD Monitoring
+* Warten in GitHub auf den **Actions-Build** mit der integrierten `pub-Signatur`.
+    * *Dauer: ca. 5-10 Minuten.*
 
-Beispiel: vx.x.x (Anmerkung ist optional).
-5. Repository-Hygiene
+### 7. Signatur-Dekodierung
+* Die generierte Signatur liegt im **Base64-Format** vor und muss dekodiert werden:
+    * 🔗 **Tool:** [https://www.base64decode.org/](https://www.base64decode.org/)
 
-Gegebenenfalls Löschen alter Tags sowohl im lokalen Repository als auch im Remote (GitHub), um Konsistenz zu wahren.
-6. GitHub Actions Build
+### 8. Signatur-Extraktion
+* Aus dem generierten Klartext muss die finale Signatur ausgeschnitten werden.
+    * *Schnittbereich:* `"trusted comment…"`
 
-Warten auf den Abschluss des automatischen Builds in GitHub. Dieser Prozess generiert die notwendige pub-Signatur.
+### 9. Updater-Finalisierung
+* Einfügen der extrahierten `pub-Signatur` in die Datei `Updater.json`.
 
-    Dauer: ca. 5–10 Minuten.
+### 10. Finaler Release-Push
+* Abschluss des Updates durch den Release-Befehl:
+    ```bash
+    git push "release update vx.x.x"
+    ```
+    *(Beispiel: `git push "release update v1.0.2"`)*
 
-7. Signatur-Dekodierung
+### 11. Deployment-Wartezeit
+* Warten auf den **GitHub-Pages Build**.
+    * *Dauer: ca. 1 Minute.*
 
-Die generierte Signatur liegt im Base64-Format vor. Diese muss über folgende Plattform dekodiert werden:
+### 12. Update-Verfügbarkeit
+* Nach Abschluss des Builds ist das neue Update erfolgreich bereitgestellt und für alle Nutzer verfügbar.
 
-    🔗 https://www.base64decode.org/
+---
 
-8. Signatur-Extraktion
-
-Nach der Dekodierung muss die finale Signatur aus dem Klartext ausgeschnitten werden.
-
-    Identifier: Suche nach dem Block "trusted comment…".
-
-9. Updater-Finalisierung
-
-Einfügen der extrahierten pub-Signatur in die Datei:
-
-    Updater.json
-
-10. Finaler Release-Push
-
-Abschluss des Update-Vorgangs durch den Release-Commit:
-Bash
-
-git push "release update vx.x.x"
-
-Beispiel: git push "release update v1.0.2"
-11. GitHub Pages Build
-
-Warten auf den Build der GitHub Pages Seite.
-
-    Dauer: ca. 1 Minute.
-
-12. Update-Verfügbarkeit
-
-Sobald der Pages-Build abgeschlossen ist, steht das neue Update für alle Instanzen von Screen-Ellophant zur Verfügung.
-
-Screen-Ellophant – Professional Presentation & Stage Technology
+**Screen-Ellophant** *Professional Presentation & Stage Technology Software* © 2026 Release Engineering Workflow
